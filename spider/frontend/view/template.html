@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="demo">
+    <div align="middle">
+        <form method="get">
+            <input type="text" maxlength="100" style="width: 500ch" value="{{.Query}}" name="q">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <h2>You get {{.Hits}} results. Start from {{.Start}}, totally {{len .Items}}</h2>
+
+    <div class="table-responsive-vertical shadow-z-1">
+        <table id="table" class="table table-striped">
+            
+            <tbody>
+            {{range .Items}}
+            <tr>
+                <td><a href={{.URL}}>{{.ID}}</a></td>
+                <td>Total number of Message {{len .Payload}}</td>
+            </tr>
+            {{else}}
+            <div>no related article</div>
+            {{end}}
+            </tbody>
+        </table>
+        <dir align="middler">
+            {{if ge .PreFrom 0}}
+            <a href="search?q={{.Query}}&from={{.PreFrom}}">Previous</a>
+            {{end}}
+            <a href="search?q={{.Query}}&from={{.NextFrom}}">Next</a>
+        </dir>
+    </div>
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>
